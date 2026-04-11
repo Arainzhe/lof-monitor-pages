@@ -1,0 +1,98 @@
+[
+  {
+    "date": "2026-04-11",
+    "time": "01:26:34",
+    "datetime": "2026-04-11 01:26:34",
+    "timestamp": 1775841994,
+    "opportunities": [
+      {
+        "code": "163406",
+        "name": "兴全合润LOF",
+        "price": 1.25,
+        "nav": 1.2,
+        "nav_date": "2024-01-15",
+        "premium_rate": 4.17,
+        "change_pct": 1.5
+      },
+      {
+        "code": "161005",
+        "name": "富国天惠LOF",
+        "price": 2.85,
+        "nav": 3.0,
+        "nav_date": "2024-01-15",
+        "premium_rate": -5.0,
+        "change_pct": -0.8
+      }
+    ],
+    "scan_info": {
+      "scanned": 50,
+      "success": 48,
+      "filtered": 2
+    },
+    "opportunity_count": 2
+  },
+  {
+    "date": "2026-04-11",
+    "time": "00:54:22",
+    "datetime": "2026-04-11 00:54:22",
+    "timestamp": 1775840062,
+    "opportunities": [
+      {
+        "code": "163406",
+        "name": "兴全合润LOF",
+        "price": 1.25,
+        "nav": 1.2,
+        "nav_date": "2024-01-15",
+        "premium_rate": 4.17,
+        "change_pct": 1.5
+      },
+      {
+        "code": "161005",
+        "name": "富国天惠LOF",
+        "price": 2.85,
+        "nav": 3.0,
+        "nav_date": "2024-01-15",
+        "premium_rate": -5.0,
+        "change_pct": -0.8
+      }
+    ],
+    "scan_info": {
+      "scanned": 50,
+      "success": 48,
+      "filtered": 2
+    },
+    "opportunity_count": 2
+  },
+  {
+    "date": "2026-04-10",
+    "time": "23:26:51",
+    "datetime": "2026-04-10 23:26:51",
+    "timestamp": 1775834811,
+    "opportunities": [
+      {
+        "code": "163406",
+        "name": "兴全合润LOF",
+        "price": 1.25,
+        "nav": 1.2,
+        "nav_date": "2024-01-15",
+        "premium_rate": 4.17,
+        "change_pct": 1.5
+      },
+      {
+        "code": "161005",
+        "name": "富国天惠LOF",
+        "price": 2.85,
+        "nav": 3.0,
+        "nav_date": "2024-01-15",
+        "premium_rate": -5.0,
+        "change_pct": -0.8
+      }
+    ],
+    "scan_info": {
+      "scanned": 50,
+      "success": 48,
+      "filtered": 2
+    },
+    "opportunity_count": 2
+  }
+]
