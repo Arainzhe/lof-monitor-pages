@@ -478,6 +478,53 @@
             animation: spin 1s linear infinite;
         }
         
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            padding: 16px;
+        }
+        
+        .pagination-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-primary);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            color: var(--text-secondary);
+            font-size: 14px;
+            padding: 0 16px;
+        }
+        
+        .page-size-select {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
         /* Footer */
         .footer {
             text-align: center;
@@ -560,6 +607,15 @@
                     <option value="discount">折价套利</option>
                 </select>
             </div>
+            <div class="filter-group">
+                <span class="filter-label">每页显示:</span>
+                <select class="page-size-select" id="page-size" onchange="changePageSize()">
+                    <option value="5">5 条</option>
+                    <option value="10" selected>10 条</option>
+                    <option value="20">20 条</option>
+                    <option value="50">50 条</option>
+                </select>
+            </div>
         </div>
         
         <section class="history-section">
@@ -568,6 +624,13 @@
             </div>
             <div class="history-list" id="history-list">
                 <!-- History items will be loaded here -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display: none;">
+                <button class="pagination-btn" id="prev-btn" onclick="prevPage()">上一页</button>
+                <span class="pagination-info" id="page-info">第 1 页 / 共 1 页</span>
+                <button class="pagination-btn" id="next-btn" onclick="nextPage()">下一页</button>
             </div>
         </section>
     </main>
@@ -583,6 +646,8 @@
     <script>
         let historyData = [];
         let filteredData = [];
+        let currentPage = 1;
+        let pageSize = 10;
         
         // 加载数据
         async function loadData() {
@@ -611,6 +676,7 @@
                     </div>
                 `;
                 document.getElementById('stats-grid').innerHTML = '';
+                document.getElementById('pagination').style.display = 'none';
             } finally {
                 loading.style.display = 'none';
                 refreshIcon.innerHTML = '🔄';
@@ -643,8 +709,73 @@
                 return true;
             });
             
+            currentPage = 1;
             renderStats(days);
             renderHistory();
+            renderPagination();
+        }
+        
+        // 改变每页数量
+        function changePageSize() {
+            pageSize = parseInt(document.getElementById('page-size').value);
+            currentPage = 1;
+            renderHistory();
+            renderPagination();
+        }
+        
+        // 上一页
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderHistory();
+                renderPagination();
+                scrollToTop();
+            }
+        }
+        
+        // 下一页
+        function nextPage() {
+            const totalPages = Math.ceil(filteredData.length / pageSize);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderHistory();
+                renderPagination();
+                scrollToTop();
+            }
+        }
+        
+        // 跳转到指定页
+        function goToPage(page) {
+            currentPage = page;
+            renderHistory();
+            renderPagination();
+            scrollToTop();
+        }
+        
+        // 滚动到顶部
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // 渲染分页
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            const pageInfo = document.getElementById('page-info');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            const totalPages = Math.ceil(filteredData.length / pageSize);
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            pageInfo.textContent = `第 ${currentPage} 页 / 共 ${totalPages} 页 (共 ${filteredData.length} 条)`;
+            
+            prevBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = currentPage >= totalPages;
         }
         
         // 渲染统计
@@ -715,13 +846,19 @@
                 return;
             }
             
-            container.innerHTML = filteredData.map((record, index) => {
+            // 计算当前页数据
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filteredData.length);
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            container.innerHTML = pageData.map((record, index) => {
+                const actualIndex = startIndex + index;
                 const hasOpportunities = record.opportunities && record.opportunities.length > 0;
                 const badgeText = hasOpportunities ? `${record.opportunity_count} 个机会` : '无机会';
                 
                 return `
-                    <div class="history-item" id="item-${index}">
-                        <div class="history-item-header" onclick="toggleItem(${index})">
+                    <div class="history-item" id="item-${actualIndex}">
+                        <div class="history-item-header" onclick="toggleItem(${actualIndex})">
                             <div class="history-item-info">
                                 <span class="history-date">${record.date}</span>
                                 <span class="history-time">${record.time}</span>
