@@ -229,17 +229,16 @@
             
             filteredData = historyData.filter(r => {
                 if (r.date < cutoffStr) return false;
-                if (type !== 'all' && r.opportunities.length > 0) {
-                    const hasType = r.opportunities.some(o => type === 'premium' ? o.premium_rate >= 0 : o.premium_rate < 0);
-                    if (!hasType) return false;
-                }
-                if (search) {
-                    const hasMatch = r.opportunities.some(o => 
-                        o.name.toLowerCase().includes(search) || o.code.includes(search)
-                    );
-                    if (!hasMatch) return false;
-                }
-                return true;
+                // 检查是否有匹配的机会
+                const filteredOpps = r.opportunities.filter(o => {
+                    // 类型筛选
+                    if (type === 'premium' && o.premium_rate < 0) return false;
+                    if (type === 'discount' && o.premium_rate >= 0) return false;
+                    // 搜索筛选
+                    if (search && !o.name.toLowerCase().includes(search) && !o.code.includes(search)) return false;
+                    return true;
+                });
+                return filteredOpps.length > 0 || (r.opportunities.length === 0 && type === 'all');
             });
             
             currentPage = 1;
@@ -248,11 +247,31 @@
             renderPagination();
         }
         
+        function getFilteredOpportunities(opportunities) {
+            const type = document.getElementById('type-filter').value;
+            const search = document.getElementById('search-input').value.toLowerCase();
+            
+            return opportunities.filter(o => {
+                if (type === 'premium' && o.premium_rate < 0) return false;
+                if (type === 'discount' && o.premium_rate >= 0) return false;
+                if (search && !o.name.toLowerCase().includes(search) && !o.code.includes(search)) return false;
+                return true;
+            });
+        }
+        
         function renderStats() {
+            const type = document.getElementById('type-filter').value;
+            const search = document.getElementById('search-input').value.toLowerCase();
             let total = filteredData.length, opps = 0, premium = 0, discount = 0;
             filteredData.forEach(r => {
-                opps += r.opportunity_count || 0;
-                r.opportunities.forEach(o => o.premium_rate >= 0 ? premium++ : discount++);
+                const filteredOpps = r.opportunities.filter(o => {
+                    if (type === 'premium' && o.premium_rate < 0) return false;
+                    if (type === 'discount' && o.premium_rate >= 0) return false;
+                    if (search && !o.name.toLowerCase().includes(search) && !o.code.includes(search)) return false;
+                    return true;
+                });
+                opps += filteredOpps.length;
+                filteredOpps.forEach(o => o.premium_rate >= 0 ? premium++ : discount++);
             });
             document.getElementById('stats-grid').innerHTML = `
                 <div class="stat-card"><div class="stat-label">运行次数</div><div class="stat-value">${total}</div></div>
@@ -273,19 +292,20 @@
             
             container.innerHTML = pageData.map((r, i) => {
                 const idx = start + i;
-                const has = r.opportunities.length > 0;
+                const filteredOpps = getFilteredOpportunities(r.opportunities);
+                const has = filteredOpps.length > 0;
                 return `
                     <div class="history-item" id="item-${idx}">
                         <div class="history-item-header" onclick="toggleItem(${idx})">
                             <div class="history-item-info">
                                 <span class="history-date">${r.date}</span>
                                 <span class="history-time">${r.time}</span>
-                                <span class="history-badge ${has ? '' : 'empty'}">${has ? r.opportunity_count + '个机会' : '无机会'}</span>
+                                <span class="history-badge ${has ? '' : 'empty'}">${has ? filteredOpps.length + '个机会' : '无机会'}</span>
                             </div>
                             <span class="history-expand">▼</span>
                         </div>
                         <div class="history-item-content">
-                            ${has ? renderOpps(r.opportunities) : '<p style="padding:16px;color:var(--text-muted)">无套利机会</p>'}
+                            ${has ? renderOpps(filteredOpps) : '<p style="padding:16px;color:var(--text-muted)">无套利机会</p>'}
                             <div class="scan-info">扫描:${r.scan_info?.scanned||0} 成功:${r.scan_info?.success||0} 过滤:${r.scan_info?.filtered||0}</div>
                         </div>
                     </div>
