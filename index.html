@@ -75,8 +75,10 @@
         .filter-select:focus, .filter-input:focus { outline: none; border-color: var(--accent-primary); }
         
         /* Chart */
-        .chart-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
-        .chart-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+        .chart-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 16px; }
+        @media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } }
         
         /* History List */
         .history-list { display: flex; flex-direction: column; gap: 12px; }
@@ -187,17 +189,19 @@
             </div>
         </div>
         <div class="tab-content" id="tab-chart">
-            <div class="chart-container">
-                <div class="chart-title">平均净收益率趋势（决策关键）</div>
-                <canvas id="rateChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <div class="chart-title">溢价/折价机会分布</div>
-                <canvas id="countChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <div class="chart-title">每日最佳机会净收益</div>
-                <canvas id="bestChart"></canvas>
+            <div class="charts-grid">
+                <div class="chart-container" style="height: 280px;">
+                    <div class="chart-title">平均净收益率趋势</div>
+                    <canvas id="rateChart"></canvas>
+                </div>
+                <div class="chart-container" style="height: 280px;">
+                    <div class="chart-title">溢价/折价机会分布</div>
+                    <canvas id="countChart"></canvas>
+                </div>
+                <div class="chart-container" style="height: 280px;">
+                    <div class="chart-title">每日最佳机会净收益</div>
+                    <canvas id="bestChart"></canvas>
+                </div>
             </div>
         </div>
     </main>
@@ -617,16 +621,18 @@
                         borderColor: '#00ff88',
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         fill: true,
-                        tension: 0.3 
+                        tension: 0.3,
+                        pointRadius: 3
                     }] 
                 },
                 options: { 
-                    responsive: true, 
-                    plugins: { legend: { labels: { color: '#fff' } } }, 
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#fff', font: { size: 11 } } } }, 
                     scales: { 
-                        x: { ticks: { color: '#888' } }, 
+                        x: { ticks: { color: '#888', font: { size: 10 } } }, 
                         y: { 
-                            ticks: { color: '#888', callback: v => v.toFixed(1) + '%' },
+                            ticks: { color: '#888', callback: v => v.toFixed(1) + '%', font: { size: 10 } },
                             grid: { color: 'rgba(255,255,255,0.1)' }
                         } 
                     } 
@@ -644,11 +650,12 @@
                     ] 
                 },
                 options: { 
-                    responsive: true, 
-                    plugins: { legend: { labels: { color: '#fff' } } }, 
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#fff', font: { size: 11 } } } }, 
                     scales: { 
-                        x: { ticks: { color: '#888' }, stacked: true }, 
-                        y: { ticks: { color: '#888' }, stacked: true } 
+                        x: { ticks: { color: '#888', font: { size: 10 } }, stacked: true }, 
+                        y: { ticks: { color: '#888', font: { size: 10 } }, stacked: true } 
                     } 
                 }
             });
@@ -665,17 +672,18 @@
                         backgroundColor: 'rgba(255, 107, 122, 0.1)',
                         fill: true,
                         tension: 0.3,
-                        pointRadius: 5,
+                        pointRadius: 3,
                         pointBackgroundColor: '#ff6b7a'
                     }] 
                 },
                 options: { 
-                    responsive: true, 
-                    plugins: { legend: { labels: { color: '#fff' } } }, 
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#fff', font: { size: 11 } } } }, 
                     scales: { 
-                        x: { ticks: { color: '#888' } }, 
+                        x: { ticks: { color: '#888', font: { size: 10 } } }, 
                         y: { 
-                            ticks: { color: '#888', callback: v => v.toFixed(1) + '%' },
+                            ticks: { color: '#888', callback: v => v.toFixed(1) + '%', font: { size: 10 } },
                             grid: { color: 'rgba(255,255,255,0.1)' }
                         } 
                     } 
