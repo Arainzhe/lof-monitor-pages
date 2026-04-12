@@ -97,6 +97,10 @@
         .opportunity-type { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
         .opportunity-type.premium { background: rgba(0, 255, 136, 0.15); color: var(--accent-success); }
         .opportunity-type.discount { background: rgba(255, 170, 0, 0.15); color: var(--accent-warning); }
+        .opportunity-type.premium.urgent { background: rgba(255, 71, 87, 0.3); color: #ff6b7a; }
+        .opportunity-type.discount.urgent { background: rgba(255, 71, 87, 0.3); color: #ff6b7a; }
+        .opportunity-type.premium.focus { background: rgba(255, 170, 0, 0.25); color: #ffcc00; }
+        .opportunity-type.discount.focus { background: rgba(255, 170, 0, 0.25); color: #ffcc00; }
         .rate-value { font-size: 24px; font-weight: 700; }
         .rate-value.positive { color: var(--accent-success); }
         .rate-value.negative { color: var(--accent-warning); }
@@ -416,6 +420,8 @@
             const type = document.getElementById('type-filter').value;
             const search = document.getElementById('search-input').value.toLowerCase();
             let total = filteredData.length, opps = 0, premium = 0, discount = 0;
+            let netRates = [], bestOpp = null, bestNetRate = 0;
+            
             filteredData.forEach(r => {
                 const filteredOpps = r.opportunities.filter(o => {
                     if (type === 'premium' && o.premium_rate < 0) return false;
@@ -424,13 +430,30 @@
                     return true;
                 });
                 opps += filteredOpps.length;
-                filteredOpps.forEach(o => o.premium_rate >= 0 ? premium++ : discount++);
+                filteredOpps.forEach(o => {
+                    if (o.premium_rate >= 0) {
+                        premium++;
+                        const netRate = o.premium_rate - 0.28;
+                        netRates.push(netRate);
+                        if (netRate > bestNetRate) { bestNetRate = netRate; bestOpp = o; }
+                    } else {
+                        discount++;
+                        const netRate = Math.abs(o.premium_rate) - 1.53;
+                        netRates.push(netRate);
+                        if (netRate > bestNetRate) { bestNetRate = netRate; bestOpp = o; }
+                    }
+                });
             });
+            
+            const avgNetRate = netRates.length > 0 ? (netRates.reduce((a,b) => a+b, 0) / netRates.length) : 0;
+            
             document.getElementById('stats-grid').innerHTML = `
                 <div class="stat-card"><div class="stat-label">运行次数</div><div class="stat-value">${total}</div></div>
                 <div class="stat-card"><div class="stat-label">发现机会</div><div class="stat-value">${opps}</div></div>
                 <div class="stat-card"><div class="stat-label">溢价套利</div><div class="stat-value premium">${premium}</div></div>
                 <div class="stat-card"><div class="stat-label">折价套利</div><div class="stat-value discount">${discount}</div></div>
+                <div class="stat-card"><div class="stat-label">平均净收益</div><div class="stat-value" style="color:${avgNetRate >= 1 ? 'var(--accent-success)' : 'var(--accent-warning)'}">${avgNetRate >= 0 ? '+' : ''}${avgNetRate.toFixed(2)}%</div></div>
+                <div class="stat-card"><div class="stat-label">最佳机会</div><div class="stat-value" style="font-size:16px;color:var(--accent-success)">${bestOpp ? bestOpp.name.slice(0,6) + ' ' + (bestNetRate >= 0 ? '+' : '') + bestNetRate.toFixed(2) + '%' : '-'}</div></div>
             `;
         }
         
@@ -469,13 +492,43 @@
         function renderOpps(opps) {
             return `<div class="opportunity-list">${opps.map(o => {
                 const isPrem = o.premium_rate >= 0;
+                const absRate = Math.abs(o.premium_rate);
+                
+                // 计算净收益率
+                let netRate;
+                if (isPrem) {
+                    // 溢价套利成本：申购0.15% + 佣金0.03% + 印花税0.1% = 0.28%
+                    netRate = o.premium_rate - 0.28;
+                } else {
+                    // 折价套利成本：佣金0.03% + 赎回费1.5% = 1.53%
+                    netRate = absRate - 1.53;
+                }
+                
+                // 获取套利级别
+                let level, levelClass;
+                if (isPrem) {
+                    if (o.premium_rate >= 15) { level = '异常'; levelClass = 'abnormal'; }
+                    else if (o.premium_rate >= 8) { level = '紧急'; levelClass = 'urgent'; }
+                    else if (o.premium_rate >= 5) { level = '重点'; levelClass = 'focus'; }
+                    else { level = '普通'; levelClass = 'normal'; }
+                } else {
+                    if (absRate >= 8) { level = '紧急'; levelClass = 'urgent'; }
+                    else if (absRate >= 5) { level = '重点'; levelClass = 'focus'; }
+                    else { level = '普通'; levelClass = 'normal'; }
+                }
+                
+                // 格式化规模和成交额
+                const sizeStr = o.fund_size ? `${o.fund_size.toFixed(0)}亿` : '-';
+                const amountStr = o.amount ? `${(o.amount/100).toFixed(0)}万` : '-';
+                
                 return `
                     <div class="opportunity-card">
                         <div>
-                            <span class="opportunity-type ${isPrem ? 'premium' : 'discount'}">${isPrem ? '溢价' : '折价'}</span>
+                            <span class="opportunity-type ${isPrem ? 'premium' : 'discount'}">${isPrem ? '溢价' : '折价'}${level}</span>
                             <strong>${o.name}</strong> <span style="color:var(--text-muted)">${o.code}</span>
                             <div style="margin-top:8px;font-size:13px;color:var(--text-secondary)">
-                                价格:${o.price?.toFixed(3)} | 净值:${o.nav?.toFixed(4)} | 日期:${o.nav_date}
+                                净收益:<span style="color:${netRate >= 1 ? 'var(--accent-success)' : netRate >= 0.5 ? 'var(--accent-warning)' : 'var(--text-muted)'}">${netRate >= 0 ? '+' : ''}${netRate.toFixed(2)}%</span>
+                                | 规模:${sizeStr} | 成交:${amountStr}
                             </div>
                         </div>
                         <div class="rate-value ${isPrem ? 'positive' : 'negative'}">${o.premium_rate >= 0 ? '+' : ''}${o.premium_rate?.toFixed(2)}%</div>
