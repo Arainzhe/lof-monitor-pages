@@ -16,6 +16,7 @@
             --accent-primary: #00d4ff;
             --accent-success: #00ff88;
             --accent-warning: #ffaa00;
+            --accent-danger: #ff4757;
             --text-primary: #ffffff;
             --text-secondary: #a0a0b0;
             --text-muted: #6c6c7c;
@@ -32,7 +33,21 @@
         .btn { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
         .btn:hover { background: var(--bg-card-hover); border-color: var(--accent-primary); }
         .btn.primary { background: var(--accent-primary); color: #000; border: none; }
+        .btn.danger { background: var(--accent-danger); color: #fff; border: none; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+        
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 300; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; max-width: 400px; width: 90%; }
+        .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+        .modal-content { margin-bottom: 20px; }
+        .modal-content label { display: block; margin-bottom: 8px; color: var(--text-secondary); }
+        .modal-content input { width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 12px; border-radius: 8px; font-size: 14px; }
+        .modal-content input:focus { outline: none; border-color: var(--accent-primary); }
+        .modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
+        .modal-info { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
         
         /* Tabs */
         .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
@@ -98,7 +113,7 @@
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
         
         /* Loading */
-        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 15, 35, 0.8); display: flex; align-items: center; justify-content: center; z-index: 200; }
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 15, 35, 0.8); display: none; align-items: center; justify-content: center; z-index: 200; }
         .loading-spinner { width: 48px; height: 48px; border: 3px solid var(--border-color); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         
@@ -113,6 +128,7 @@
                 <div class="logo-text"><h1>LOF套利监控</h1><p>历史机会查看</p></div>
             </div>
             <div class="header-actions">
+                <button class="btn primary" onclick="showTriggerModal()">🚀 手动扫描</button>
                 <button class="btn" onclick="exportData()">📥 导出CSV</button>
                 <button class="btn" onclick="loadData()">🔄 刷新</button>
             </div>
@@ -120,16 +136,11 @@
     </header>
     
     <main class="container">
-        <!-- Tabs -->
         <div class="tabs">
             <div class="tab active" onclick="switchTab('list')">📋 历史列表</div>
             <div class="tab" onclick="switchTab('chart')">📊 趋势图表</div>
         </div>
-        
-        <!-- Stats -->
         <div class="stats-grid" id="stats-grid"></div>
-        
-        <!-- Filter -->
         <div class="filter-bar">
             <div class="filter-group">
                 <span class="filter-label">搜索:</span>
@@ -163,8 +174,6 @@
                 </select>
             </div>
         </div>
-        
-        <!-- List Tab -->
         <div class="tab-content active" id="tab-list">
             <div class="history-list" id="history-list"></div>
             <div class="pagination" id="pagination" style="display: none;">
@@ -173,8 +182,6 @@
                 <button class="pagination-btn" id="next-btn" onclick="nextPage()">下一页</button>
             </div>
         </div>
-        
-        <!-- Chart Tab -->
         <div class="tab-content" id="tab-chart">
             <div class="chart-container">
                 <div class="chart-title">溢价率趋势</div>
@@ -187,10 +194,160 @@
         </div>
     </main>
     
-    <footer class="footer"><p>LOF套利监控 | 每交易日 10:00、14:30 更新</p></footer>
+    <!-- Trigger Modal -->
+    <div class="modal-overlay" id="trigger-modal">
+        <div class="modal">
+            <div class="modal-title">🚀 手动触发扫描</div>
+            <div class="modal-content">
+                <label>请输入 GitHub Token</label>
+                <input type="password" id="trigger-token" placeholder="ghp_xxxx...">
+                <div class="modal-info" id="trigger-info"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn" onclick="hideTriggerModal()">取消</button>
+                <button class="btn primary" onclick="confirmTrigger()">确认触发</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer"><p>LOF套利监控 | 每交易日 10:00、14:00 自动更新</p></footer>
     <div class="loading-overlay" id="loading" style="display: none;"><div class="loading-spinner"></div></div>
     
     <script>
+        // ========== 配置区域 ==========
+        const CONFIG = {
+            // GitHub 仓库信息（需要修改为你的）
+            GITHUB_OWNER: 'Arainzhe',           // 你的 GitHub 用户名
+            GITHUB_REPO: 'lof-monitor',         // 私有仓库名
+            WORKFLOW_ID: 'monitor.yml',         // workflow 文件名
+            
+            // 限制配置
+            MAX_CALLS_PER_DAY: 5,              // 每天最多调用次数
+            MIN_INTERVAL_MS: 15 * 60 * 1000   // 最小间隔 15 分钟
+        };
+        
+        // ========== 触发限制逻辑 ==========
+        function getTriggerRecord() {
+            const record = localStorage.getItem('lof_trigger_record');
+            return record ? JSON.parse(record) : { date: '', count: 0, lastTime: 0 };
+        }
+        
+        function saveTriggerRecord(record) {
+            localStorage.setItem('lof_trigger_record', JSON.stringify(record));
+        }
+        
+        function checkTriggerLimit() {
+            const now = Date.now();
+            const today = new Date().toDateString();
+            let record = getTriggerRecord();
+            
+            // 新的一天，重置计数
+            if (record.date !== today) {
+                record = { date: today, count: 0, lastTime: 0 };
+                saveTriggerRecord(record);
+            }
+            
+            // 检查次数
+            if (record.count >= CONFIG.MAX_CALLS_PER_DAY) {
+                return { canTrigger: false, message: `今天已达到上限 (${CONFIG.MAX_CALLS_PER_DAY}次)，请明天再试` };
+            }
+            
+            // 检查间隔
+            if (record.lastTime > 0 && (now - record.lastTime) < CONFIG.MIN_INTERVAL_MS) {
+                const remaining = Math.ceil((CONFIG.MIN_INTERVAL_MS - (now - record.lastTime)) / 60000);
+                return { canTrigger: false, message: `请等待 ${remaining} 分钟后再试` };
+            }
+            
+            return { canTrigger: true, message: '', record };
+        }
+        
+        // ========== 弹窗控制 ==========
+        function showTriggerModal() {
+            // 先检查限制
+            const limit = checkTriggerLimit();
+            if (!limit.canTrigger) {
+                alert(limit.message);
+                return;
+            }
+            
+            // 显示弹窗
+            document.getElementById('trigger-token').value = '';
+            document.getElementById('trigger-info').textContent = 
+                `今日已用: ${getTriggerRecord().count}/${CONFIG.MAX_CALLS_PER_DAY} 次`;
+            document.getElementById('trigger-modal').classList.add('show');
+            document.getElementById('trigger-token').focus();
+        }
+        
+        function hideTriggerModal() {
+            document.getElementById('trigger-modal').classList.remove('show');
+        }
+        
+        // ========== 触发 GitHub Actions ==========
+        async function confirmTrigger() {
+            const token = document.getElementById('trigger-token').value.trim();
+            
+            if (!token) {
+                alert('请输入 GitHub Token');
+                return;
+            }
+            
+            if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+                alert('Token 格式不正确，应以 ghp_ 或 github_pat_ 开头');
+                return;
+            }
+            
+            // 再次检查限制
+            const limit = checkTriggerLimit();
+            if (!limit.canTrigger) {
+                alert(limit.message);
+                hideTriggerModal();
+                return;
+            }
+            
+            // 显示加载
+            document.getElementById('loading').style.display = 'flex';
+            hideTriggerModal();
+            
+            try {
+                // 调用 GitHub Actions API
+                const url = `https://api.github.com/repos/${CONFIG.GITHUB_OWNER}/${CONFIG.GITHUB_REPO}/actions/workflows/${CONFIG.WORKFLOW_ID}/dispatches`;
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ref: 'main' })
+                });
+                
+                if (response.status === 204) {
+                    // 成功，更新记录
+                    const record = limit.record;
+                    record.count++;
+                    record.lastTime = Date.now();
+                    saveTriggerRecord(record);
+                    
+                    alert('✅ 扫描已触发！请等待 1-2 分钟后刷新页面查看结果。');
+                } else if (response.status === 401) {
+                    alert('❌ Token 无效或已过期');
+                } else if (response.status === 403) {
+                    alert('❌ 权限不足，请检查 Token 是否有 repo 权限');
+                } else if (response.status === 404) {
+                    alert('❌ 仓库或 workflow 不存在，请检查配置');
+                } else {
+                    const text = await response.text();
+                    alert(`❌ 触发失败: ${response.status}`);
+                }
+            } catch (e) {
+                alert(`❌ 请求失败: ${e.message}`);
+            }
+            
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        // ========== 原有功能 ==========
         let historyData = [];
         let filteredData = [];
         let currentPage = 1;
@@ -229,12 +386,9 @@
             
             filteredData = historyData.filter(r => {
                 if (r.date < cutoffStr) return false;
-                // 检查是否有匹配的机会
                 const filteredOpps = r.opportunities.filter(o => {
-                    // 类型筛选
                     if (type === 'premium' && o.premium_rate < 0) return false;
                     if (type === 'discount' && o.premium_rate >= 0) return false;
-                    // 搜索筛选
                     if (search && !o.name.toLowerCase().includes(search) && !o.code.includes(search)) return false;
                     return true;
                 });
@@ -250,7 +404,6 @@
         function getFilteredOpportunities(opportunities) {
             const type = document.getElementById('type-filter').value;
             const search = document.getElementById('search-input').value.toLowerCase();
-            
             return opportunities.filter(o => {
                 if (type === 'premium' && o.premium_rate < 0) return false;
                 if (type === 'discount' && o.premium_rate >= 0) return false;
