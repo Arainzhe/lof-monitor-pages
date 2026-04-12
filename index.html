@@ -188,12 +188,16 @@
         </div>
         <div class="tab-content" id="tab-chart">
             <div class="chart-container">
-                <div class="chart-title">溢价率趋势</div>
+                <div class="chart-title">平均净收益率趋势（决策关键）</div>
                 <canvas id="rateChart"></canvas>
             </div>
             <div class="chart-container">
-                <div class="chart-title">机会数量趋势</div>
+                <div class="chart-title">溢价/折价机会分布</div>
                 <canvas id="countChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">每日最佳机会净收益</div>
+                <canvas id="bestChart"></canvas>
             </div>
         </div>
     </main>
@@ -358,6 +362,7 @@
         let pageSize = 10;
         let rateChart = null;
         let countChart = null;
+        let bestChart = null;
         
         async function loadData() {
             document.getElementById('loading').style.display = 'flex';
@@ -562,25 +567,119 @@
             const data = historyData.filter(r => r.date >= cutoff.toISOString().split('T')[0]).reverse();
             
             const labels = data.map(r => r.date.slice(5));
-            const counts = data.map(r => r.opportunity_count);
-            const rates = data.map(r => {
+            
+            // 计算平均净收益率
+            const netRates = data.map(r => {
                 if (!r.opportunities.length) return 0;
-                return r.opportunities.reduce((s, o) => s + Math.abs(o.premium_rate), 0) / r.opportunities.length;
+                let total = 0;
+                r.opportunities.forEach(o => {
+                    if (o.premium_rate >= 0) {
+                        total += o.premium_rate - 0.28; // 溢价套利
+                    } else {
+                        total += Math.abs(o.premium_rate) - 1.53; // 折价套利
+                    }
+                });
+                return total / r.opportunities.length;
+            });
+            
+            // 计算溢价/折价数量
+            const premiumCounts = data.map(r => r.opportunities.filter(o => o.premium_rate >= 0).length);
+            const discountCounts = data.map(r => r.opportunities.filter(o => o.premium_rate < 0).length);
+            
+            // 计算每日最佳机会净收益
+            const bestRates = data.map(r => {
+                if (!r.opportunities.length) return 0;
+                let best = 0;
+                r.opportunities.forEach(o => {
+                    let netRate;
+                    if (o.premium_rate >= 0) {
+                        netRate = o.premium_rate - 0.28;
+                    } else {
+                        netRate = Math.abs(o.premium_rate) - 1.53;
+                    }
+                    if (netRate > best) best = netRate;
+                });
+                return best;
             });
             
             if (rateChart) rateChart.destroy();
             if (countChart) countChart.destroy();
+            if (bestChart) bestChart.destroy();
             
+            // 净收益率趋势图
             rateChart = new Chart(document.getElementById('rateChart'), {
                 type: 'line',
-                data: { labels, datasets: [{ label: '平均溢价率%', data: rates, borderColor: '#00d4ff', tension: 0.3 }] },
-                options: { responsive: true, plugins: { legend: { labels: { color: '#fff' } } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' } } } }
+                data: { 
+                    labels, 
+                    datasets: [{ 
+                        label: '平均净收益率%', 
+                        data: netRates, 
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        fill: true,
+                        tension: 0.3 
+                    }] 
+                },
+                options: { 
+                    responsive: true, 
+                    plugins: { legend: { labels: { color: '#fff' } } }, 
+                    scales: { 
+                        x: { ticks: { color: '#888' } }, 
+                        y: { 
+                            ticks: { color: '#888', callback: v => v.toFixed(1) + '%' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        } 
+                    } 
+                }
             });
             
+            // 溢价/折价分布图（堆叠柱状图）
             countChart = new Chart(document.getElementById('countChart'), {
                 type: 'bar',
-                data: { labels, datasets: [{ label: '机会数量', data: counts, backgroundColor: '#7b2cbf' }] },
-                options: { responsive: true, plugins: { legend: { labels: { color: '#fff' } } }, scales: { x: { ticks: { color: '#888' } }, y: { ticks: { color: '#888' } } } }
+                data: { 
+                    labels, 
+                    datasets: [
+                        { label: '溢价套利', data: premiumCounts, backgroundColor: '#00ff88' },
+                        { label: '折价套利', data: discountCounts, backgroundColor: '#ffaa00' }
+                    ] 
+                },
+                options: { 
+                    responsive: true, 
+                    plugins: { legend: { labels: { color: '#fff' } } }, 
+                    scales: { 
+                        x: { ticks: { color: '#888' }, stacked: true }, 
+                        y: { ticks: { color: '#888' }, stacked: true } 
+                    } 
+                }
+            });
+            
+            // 最佳机会趋势图
+            bestChart = new Chart(document.getElementById('bestChart'), {
+                type: 'line',
+                data: { 
+                    labels, 
+                    datasets: [{ 
+                        label: '最佳净收益%', 
+                        data: bestRates, 
+                        borderColor: '#ff6b7a',
+                        backgroundColor: 'rgba(255, 107, 122, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#ff6b7a'
+                    }] 
+                },
+                options: { 
+                    responsive: true, 
+                    plugins: { legend: { labels: { color: '#fff' } } }, 
+                    scales: { 
+                        x: { ticks: { color: '#888' } }, 
+                        y: { 
+                            ticks: { color: '#888', callback: v => v.toFixed(1) + '%' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        } 
+                    } 
+                }
             });
         }
         
