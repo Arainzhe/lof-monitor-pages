@@ -228,10 +228,11 @@
     <script>
         // ========== 配置区域 ==========
         const CONFIG = {
-            // GitHub 仓库信息（需要修改为你的）
-            GITHUB_OWNER: 'Arainzhe',           // 你的 GitHub 用户名
-            GITHUB_REPO: 'lof-monitor',         // 私有仓库名
-            WORKFLOW_ID: 'monitor.yml',         // workflow 文件名
+            // Cloudflare Workers API 地址
+            WORKER_URL: 'https://lof-monitor-api.wangzhe1810.workers.dev',
+            
+            // 访问密钥
+            AUTH_KEY: '1qaz2wsx',
             
             // 限制配置
             MAX_CALLS_PER_DAY: 5,              // 每天最多调用次数
@@ -282,32 +283,20 @@
                 return;
             }
             
-            // 显示弹窗
-            document.getElementById('trigger-token').value = '';
+            // 显示弹窗（不再需要输入 Token）
             document.getElementById('trigger-info').textContent = 
                 `今日已用: ${getTriggerRecord().count}/${CONFIG.MAX_CALLS_PER_DAY} 次`;
+            document.getElementById('trigger-token').parentElement.style.display = 'none';
             document.getElementById('trigger-modal').classList.add('show');
-            document.getElementById('trigger-token').focus();
         }
         
         function hideTriggerModal() {
             document.getElementById('trigger-modal').classList.remove('show');
+            document.getElementById('trigger-token').parentElement.style.display = 'block';
         }
         
-        // ========== 触发 GitHub Actions ==========
+        // ========== 触发扫描（通过 Workers API）==========
         async function confirmTrigger() {
-            const token = document.getElementById('trigger-token').value.trim();
-            
-            if (!token) {
-                alert('请输入 GitHub Token');
-                return;
-            }
-            
-            if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
-                alert('Token 格式不正确，应以 ghp_ 或 github_pat_ 开头');
-                return;
-            }
-            
             // 再次检查限制
             const limit = checkTriggerLimit();
             if (!limit.canTrigger) {
@@ -321,39 +310,31 @@
             hideTriggerModal();
             
             try {
-                // 调用 GitHub Actions API
-                const url = `https://api.github.com/repos/${CONFIG.GITHUB_OWNER}/${CONFIG.GITHUB_REPO}/actions/workflows/${CONFIG.WORKFLOW_ID}/dispatches`;
+                // 调用 Workers API（Token 在服务端，前端完全接触不到）
+                const url = `${CONFIG.WORKER_URL}/trigger?key=${CONFIG.AUTH_KEY}`;
                 
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json',
                         'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ ref: 'main' })
+                    }
                 });
                 
-                if (response.status === 204) {
+                const result = await response.json();
+                
+                if (result.success) {
                     // 成功，更新记录
                     const record = limit.record;
                     record.count++;
                     record.lastTime = Date.now();
                     saveTriggerRecord(record);
                     
-                    alert('✅ 扫描已触发！请等待 1-2 分钟后刷新页面查看结果。');
-                } else if (response.status === 401) {
-                    alert('❌ Token 无效或已过期');
-                } else if (response.status === 403) {
-                    alert('❌ 权限不足，请检查 Token 是否有 repo 权限');
-                } else if (response.status === 404) {
-                    alert('❌ 仓库或 workflow 不存在，请检查配置');
+                    alert('✅ ' + result.message);
                 } else {
-                    const text = await response.text();
-                    alert(`❌ 触发失败: ${response.status}`);
+                    alert('❌ ' + (result.message || '触发失败'));
                 }
             } catch (e) {
-                alert(`❌ 请求失败: ${e.message}`);
+                alert('❌ 请求失败: ' + e.message);
             }
             
             document.getElementById('loading').style.display = 'none';
