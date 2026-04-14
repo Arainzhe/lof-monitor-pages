@@ -231,8 +231,10 @@
             // Cloudflare Workers API 地址
             WORKER_URL: 'https://lof-monitor-api.arainzhe.workers.dev',
             
-            // 访问密钥
-            AUTH_KEY: '1qaz2wsx',
+            // 访问密钥（从 localStorage 获取，首次使用需输入）
+            get AUTH_KEY() {
+                return localStorage.getItem('lof_auth_key') || '';
+            },
             
             // 限制配置
             MAX_CALLS_PER_DAY: 5,              // 每天最多调用次数
@@ -283,16 +285,37 @@
                 return;
             }
             
-            // 显示弹窗（不再需要输入 Token）
-            document.getElementById('trigger-info').textContent = 
-                `今日已用: ${getTriggerRecord().count}/${CONFIG.MAX_CALLS_PER_DAY} 次`;
-            document.getElementById('trigger-token').parentElement.style.display = 'none';
+            // 检查是否已设置访问密钥
+            const authKey = CONFIG.AUTH_KEY;
+            const tokenInput = document.getElementById('trigger-token');
+            const tokenLabel = tokenInput.parentElement.querySelector('label');
+            
+            if (!authKey) {
+                // 首次使用，需要输入访问密码
+                tokenLabel.textContent = '请输入访问密码';
+                tokenInput.placeholder = '访问密码';
+                tokenInput.type = 'password';
+                tokenInput.value = '';
+                document.getElementById('trigger-info').innerHTML = 
+                    '首次使用需设置访问密码，密码将保存在本地浏览器。<br>今日已用: ' + 
+                    getTriggerRecord().count + '/' + CONFIG.MAX_CALLS_PER_DAY + ' 次';
+            } else {
+                // 已有密码，显示更新选项
+                tokenLabel.textContent = '访问密码（已保存，可修改）';
+                tokenInput.placeholder = '留空使用已保存的密码';
+                tokenInput.type = 'password';
+                tokenInput.value = '';
+                document.getElementById('trigger-info').innerHTML = 
+                    '密码已保存在本地浏览器。<br>今日已用: ' + 
+                    getTriggerRecord().count + '/' + CONFIG.MAX_CALLS_PER_DAY + ' 次';
+            }
+            
             document.getElementById('trigger-modal').classList.add('show');
+            tokenInput.focus();
         }
         
         function hideTriggerModal() {
             document.getElementById('trigger-modal').classList.remove('show');
-            document.getElementById('trigger-token').parentElement.style.display = 'block';
         }
         
         // ========== 触发扫描（通过 Workers API）==========
@@ -305,13 +328,28 @@
                 return;
             }
             
+            // 获取密码
+            let authKey = CONFIG.AUTH_KEY;
+            const inputKey = document.getElementById('trigger-token').value.trim();
+            
+            if (inputKey) {
+                // 用户输入了新密码，保存到 localStorage
+                localStorage.setItem('lof_auth_key', inputKey);
+                authKey = inputKey;
+            }
+            
+            if (!authKey) {
+                alert('请输入访问密码');
+                return;
+            }
+            
             // 显示加载
             document.getElementById('loading').style.display = 'flex';
             hideTriggerModal();
             
             try {
                 // 调用 Workers API（Token 在服务端，前端完全接触不到）
-                const url = `${CONFIG.WORKER_URL}/trigger?key=${CONFIG.AUTH_KEY}`;
+                const url = `${CONFIG.WORKER_URL}/trigger?key=${encodeURIComponent(authKey)}`;
                 
                 const response = await fetch(url, {
                     method: 'POST',
@@ -331,6 +369,10 @@
                     
                     alert('✅ ' + result.message);
                 } else {
+                    // 如果是认证失败，清除保存的密码
+                    if (result.message && result.message.includes('无效')) {
+                        localStorage.removeItem('lof_auth_key');
+                    }
                     alert('❌ ' + (result.message || '触发失败'));
                 }
             } catch (e) {
