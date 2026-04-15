@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "date": "2026-04-16",
+    "time": "01:01:07",
+    "datetime": "2026-04-16 01:01:07",
+    "timestamp": 1776272467,
+    "opportunities": [
+      {
+        "code": "160220",
+        "name": "国泰民益混合(LOF)A",
+        "price": 4.034,
+        "nav": 3.7094,
+        "nav_date": "2026-04-15 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 8.75,
+        "annualized_premium": 1058.84,
+        "safe_margin": 8.47,
+        "change_pct": -0.35,
+        "fund_size": 0,
+        "amount": 814239.501
+      },
+      {
+        "code": "160143",
+        "name": "南方创业板2年定期开放混合",
+        "price": 1.365,
+        "nav": 1.4415,
+        "nav_date": "2026-04-15 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": -5.31,
+        "annualized_premium": -642.14,
+        "safe_margin": -5.59,
+        "change_pct": -1.02,
+        "fund_size": 0,
+        "amount": 196753.1
+      }
+    ],
+    "scan_info": {
+      "scanned": 30,
+      "success": 18,
+      "filtered": 12
+    },
+    "opportunity_count": 2
+  }
+]
