@@ -236,9 +236,9 @@
                 return localStorage.getItem('lof_auth_key') || '';
             },
             
-            // 限制配置
-            MAX_CALLS_PER_DAY: 5,              // 每天最多调用次数
-            MIN_INTERVAL_MS: 15 * 60 * 1000   // 最小间隔 15 分钟
+            // 限制配置（已禁用）
+            MAX_CALLS_PER_DAY: 99999,          // 已禁用
+            MIN_INTERVAL_MS: 0                 // 已禁用
         };
         
         // ========== 触发限制逻辑 ==========
