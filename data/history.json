@@ -1,1 +1,60 @@
-[]
+[
+  {
+    "date": "2026-04-17",
+    "time": "15:22:00",
+    "datetime": "2026-04-17 15:22:00",
+    "timestamp": 1776410520,
+    "opportunities": [
+      {
+        "code": "162720",
+        "name": "广发创业板定开",
+        "price": 1.317,
+        "nav": 1.4181,
+        "nav_date": "2026-04-17 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": -7.13,
+        "annualized_premium": -862.64,
+        "safe_margin": -7.41,
+        "change_pct": 2.09,
+        "fund_size": 0,
+        "amount": 2559972.716
+      }
+    ],
+    "scan_info": {
+      "scanned": 30,
+      "success": 30,
+      "filtered": 0
+    },
+    "opportunity_count": 1
+  },
+  {
+    "date": "2026-04-16",
+    "time": "15:21:51",
+    "datetime": "2026-04-16 15:21:51",
+    "timestamp": 1776324111,
+    "opportunities": [
+      {
+        "code": "160143",
+        "name": "南方创业板2年定期开放混合",
+        "price": 1.393,
+        "nav": 1.481,
+        "nav_date": "2026-04-16 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": -5.94,
+        "annualized_premium": -718.97,
+        "safe_margin": -6.22,
+        "change_pct": 2.05,
+        "fund_size": 0,
+        "amount": 147566.9
+      }
+    ],
+    "scan_info": {
+      "scanned": 30,
+      "success": 19,
+      "filtered": 11
+    },
+    "opportunity_count": 1
+  }
+]
