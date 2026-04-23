@@ -1,5 +1,49 @@
 [
   {
+    "date": "2026-04-24",
+    "time": "02:05:04",
+    "datetime": "2026-04-24 02:05:04",
+    "timestamp": 1776967504,
+    "opportunities": [
+      {
+        "code": "501205",
+        "name": "鹏华创新未来混合(LOF)C",
+        "price": 0.981,
+        "nav": 0.8897,
+        "nav_date": "2026-04-23 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 10.26,
+        "annualized_premium": 1241.69,
+        "safe_margin": 9.98,
+        "change_pct": 7.21,
+        "fund_size": 0,
+        "amount": 1968.94
+      },
+      {
+        "code": "160416",
+        "name": "华安标普全球石油指数(LOF)A",
+        "price": 2.294,
+        "nav": 2.0906,
+        "nav_date": "2026-04-23 22:29",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 9.73,
+        "annualized_premium": 1177.24,
+        "safe_margin": 9.45,
+        "change_pct": 2.96,
+        "fund_size": 0,
+        "amount": 90490.92
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 62,
+      "filtered": -62
+    },
+    "opportunity_count": 2
+  },
+  {
     "date": "2026-04-22",
     "time": "12:53:24",
     "datetime": "2026-04-22 12:53:24",
