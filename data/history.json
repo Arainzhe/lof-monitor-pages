@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-04-28",
+    "time": "16:33:47",
+    "datetime": "2026-04-28 16:33:47",
+    "timestamp": 1777365227,
+    "opportunities": [
+      {
+        "code": "160416",
+        "name": "华安标普全球石油指数(LOF)A",
+        "price": 2.256,
+        "nav": 2.1028,
+        "nav_date": "2026-04-28 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 7.29,
+        "annualized_premium": 881.55,
+        "safe_margin": 7.01,
+        "change_pct": 0.71,
+        "fund_size": 0,
+        "amount": 25179.96
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 62,
+      "filtered": -62
+    },
+    "opportunity_count": 1
+  },
+  {
     "date": "2026-04-27",
     "time": "16:35:35",
     "datetime": "2026-04-27 16:35:35",
