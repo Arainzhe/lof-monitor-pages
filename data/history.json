@@ -1,5 +1,64 @@
 [
   {
+    "date": "2026-05-07",
+    "time": "13:40:04",
+    "datetime": "2026-05-07 13:40:04",
+    "timestamp": 1778132404,
+    "opportunities": [
+      {
+        "code": "161128",
+        "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
+        "price": 6.358,
+        "nav": 6.0956,
+        "nav_date": "2026-05-07 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 4.3,
+        "annualized_premium": 520.87,
+        "safe_margin": 4.02,
+        "change_pct": 0.68,
+        "fund_size": 0,
+        "amount": 10649.17
+      },
+      {
+        "code": "160416",
+        "name": "华安标普全球石油指数(LOF)A",
+        "price": 2.101,
+        "nav": 2.2071,
+        "nav_date": "2026-05-07 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": -4.81,
+        "annualized_premium": -581.67,
+        "safe_margin": -5.09,
+        "change_pct": -3.49,
+        "fund_size": 0,
+        "amount": 4250.76
+      },
+      {
+        "code": "501312",
+        "name": "华宝海外科技股票(QDII-LOF)A",
+        "price": 2.214,
+        "nav": 2.1473,
+        "nav_date": "2026-05-07 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.11,
+        "annualized_premium": 375.85,
+        "safe_margin": 2.83,
+        "change_pct": 2.83,
+        "fund_size": 0,
+        "amount": 2743.43
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 60,
+      "filtered": -60
+    },
+    "opportunity_count": 3
+  },
+  {
     "date": "2026-04-30",
     "time": "16:30:27",
     "datetime": "2026-04-30 16:30:27",
