@@ -1,16 +1,32 @@
 [
   {
     "date": "2026-05-14",
-    "time": "13:56:13",
-    "datetime": "2026-05-14 13:56:13",
-    "timestamp": 1778738173,
-    "opportunities": [],
+    "time": "16:45:19",
+    "datetime": "2026-05-14 16:45:19",
+    "timestamp": 1778748319,
+    "opportunities": [
+      {
+        "code": "501096",
+        "name": "国联安科创混合(LOF)",
+        "price": 1.754,
+        "nav": 1.7003,
+        "nav_date": "2026-05-14 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.16,
+        "annualized_premium": 382.15,
+        "safe_margin": 2.88,
+        "change_pct": -0.79,
+        "fund_size": 0,
+        "amount": 1050.54
+      }
+    ],
     "scan_info": {
       "scanned": 0,
-      "success": 63,
-      "filtered": -63
+      "success": 60,
+      "filtered": -60
     },
-    "opportunity_count": 0
+    "opportunity_count": 1
   },
   {
     "date": "2026-05-13",
