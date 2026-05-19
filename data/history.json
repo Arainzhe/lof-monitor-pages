@@ -1,5 +1,18 @@
 [
   {
+    "date": "2026-05-19",
+    "time": "14:17:32",
+    "datetime": "2026-05-19 14:17:32",
+    "timestamp": 1779171452,
+    "opportunities": [],
+    "scan_info": {
+      "scanned": 0,
+      "success": 65,
+      "filtered": -65
+    },
+    "opportunity_count": 0
+  },
+  {
     "date": "2026-05-18",
     "time": "18:15:44",
     "datetime": "2026-05-18 18:15:44",
