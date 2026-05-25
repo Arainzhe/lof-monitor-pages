@@ -1,60 +1,60 @@
 [
   {
     "date": "2026-05-25",
-    "time": "14:44:13",
-    "datetime": "2026-05-25 14:44:13",
-    "timestamp": 1779691453,
+    "time": "18:19:28",
+    "datetime": "2026-05-25 18:19:28",
+    "timestamp": 1779704368,
     "opportunities": [
       {
         "code": "161128",
         "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
-        "price": 6.866,
+        "price": 6.876,
         "nav": 6.6128,
         "nav_date": "2026-05-23 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 3.83,
-        "annualized_premium": 463.3,
-        "safe_margin": 3.55,
-        "change_pct": 3.98,
+        "premium_rate": 3.98,
+        "annualized_premium": 481.6,
+        "safe_margin": 3.7,
+        "change_pct": 4.13,
         "fund_size": 0,
-        "amount": 23580.09
+        "amount": 26345.98
       },
       {
         "code": "160416",
         "name": "华安标普全球石油指数(LOF)A",
-        "price": 2.063,
+        "price": 2.061,
         "nav": 2.1661,
         "nav_date": "2026-05-23 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": -4.76,
-        "annualized_premium": -575.92,
-        "safe_margin": -5.04,
-        "change_pct": -3.37,
+        "premium_rate": -4.85,
+        "annualized_premium": -587.1,
+        "safe_margin": -5.13,
+        "change_pct": -3.47,
         "fund_size": 0,
-        "amount": 5271.17
+        "amount": 5526.84
       },
       {
         "code": "161130",
         "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
-        "price": 4.618,
+        "price": 4.613,
         "nav": 4.4678,
         "nav_date": "2026-05-23 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 3.36,
-        "annualized_premium": 406.78,
-        "safe_margin": 3.08,
-        "change_pct": 3.71,
+        "premium_rate": 3.25,
+        "annualized_premium": 393.24,
+        "safe_margin": 2.97,
+        "change_pct": 3.59,
         "fund_size": 0,
-        "amount": 6182.73
+        "amount": 6682.74
       }
     ],
     "scan_info": {
       "scanned": 0,
-      "success": 63,
-      "filtered": -63
+      "success": 61,
+      "filtered": -61
     },
     "opportunity_count": 3
   },
