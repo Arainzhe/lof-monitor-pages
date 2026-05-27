@@ -1,39 +1,39 @@
 [
   {
     "date": "2026-05-27",
-    "time": "14:29:16",
-    "datetime": "2026-05-27 14:29:16",
-    "timestamp": 1779863356,
+    "time": "18:03:10",
+    "datetime": "2026-05-27 18:03:10",
+    "timestamp": 1779876190,
     "opportunities": [
       {
         "code": "161128",
         "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
-        "price": 6.955,
+        "price": 6.979,
         "nav": 6.5951,
         "nav_date": "2026-05-27 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 5.46,
-        "annualized_premium": 660.31,
-        "safe_margin": 5.18,
-        "change_pct": 1.31,
+        "premium_rate": 5.82,
+        "annualized_premium": 704.34,
+        "safe_margin": 5.54,
+        "change_pct": 1.66,
         "fund_size": 0,
-        "amount": 28655.3
+        "amount": 32018.09
       },
       {
         "code": "501312",
         "name": "华宝海外科技股票(QDII-LOF)A",
-        "price": 2.36,
+        "price": 2.399,
         "nav": 2.2731,
         "nav_date": "2026-05-27 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 3.82,
-        "annualized_premium": 462.58,
-        "safe_margin": 3.54,
-        "change_pct": 3.01,
+        "premium_rate": 5.54,
+        "annualized_premium": 670.18,
+        "safe_margin": 5.26,
+        "change_pct": 4.71,
         "fund_size": 0,
-        "amount": 46851.37
+        "amount": 57297.12
       }
     ],
     "scan_info": {
