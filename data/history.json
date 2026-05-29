@@ -1,60 +1,60 @@
 [
   {
     "date": "2026-05-29",
-    "time": "14:23:14",
-    "datetime": "2026-05-29 14:23:14",
-    "timestamp": 1780035794,
+    "time": "18:03:01",
+    "datetime": "2026-05-29 18:03:01",
+    "timestamp": 1780048981,
     "opportunities": [
       {
         "code": "501312",
         "name": "华宝海外科技股票(QDII-LOF)A",
-        "price": 2.461,
+        "price": 2.476,
         "nav": 2.3319,
         "nav_date": "2026-05-29 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 5.54,
-        "annualized_premium": 669.89,
-        "safe_margin": 5.26,
-        "change_pct": 3.93,
+        "premium_rate": 6.18,
+        "annualized_premium": 747.72,
+        "safe_margin": 5.9,
+        "change_pct": 4.56,
         "fund_size": 0,
-        "amount": 45753.43
+        "amount": 56020.77
       },
       {
         "code": "161128",
         "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
-        "price": 7.015,
+        "price": 7.038,
         "nav": 6.6889,
         "nav_date": "2026-05-29 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 4.88,
-        "annualized_premium": 589.9,
-        "safe_margin": 4.6,
-        "change_pct": 2.1,
+        "premium_rate": 5.22,
+        "annualized_premium": 631.51,
+        "safe_margin": 4.94,
+        "change_pct": 2.43,
         "fund_size": 0,
-        "amount": 13321.43
+        "amount": 16345.3
       },
       {
         "code": "161130",
         "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
-        "price": 4.71,
+        "price": 4.725,
         "nav": 4.5713,
         "nav_date": "2026-05-29 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 3.03,
-        "annualized_premium": 367.13,
-        "safe_margin": 2.75,
-        "change_pct": 1.97,
+        "premium_rate": 3.36,
+        "annualized_premium": 406.84,
+        "safe_margin": 3.08,
+        "change_pct": 2.29,
         "fund_size": 0,
-        "amount": 3898.41
+        "amount": 4567.02
       }
     ],
     "scan_info": {
       "scanned": 0,
-      "success": 64,
-      "filtered": -64
+      "success": 59,
+      "filtered": -59
     },
     "opportunity_count": 3
   },
