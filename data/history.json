@@ -1,5 +1,64 @@
 [
   {
+    "date": "2026-06-01",
+    "time": "15:10:27",
+    "datetime": "2026-06-01 15:10:27",
+    "timestamp": 1780297827,
+    "opportunities": [
+      {
+        "code": "161128",
+        "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
+        "price": 7.445,
+        "nav": 6.8084,
+        "nav_date": "2026-05-30 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 9.35,
+        "annualized_premium": 1131.38,
+        "safe_margin": 9.07,
+        "change_pct": 5.78,
+        "fund_size": 0,
+        "amount": 53823.06
+      },
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.93,
+        "nav": 4.5842,
+        "nav_date": "2026-05-30 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 7.54,
+        "annualized_premium": 912.74,
+        "safe_margin": 7.26,
+        "change_pct": 4.34,
+        "fund_size": 0,
+        "amount": 9822.6
+      },
+      {
+        "code": "501312",
+        "name": "华宝海外科技股票(QDII-LOF)A",
+        "price": 2.508,
+        "nav": 2.3862,
+        "nav_date": "2026-05-30 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 5.1,
+        "annualized_premium": 617.63,
+        "safe_margin": 4.82,
+        "change_pct": 1.29,
+        "fund_size": 0,
+        "amount": 40526.72
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 68,
+      "filtered": -68
+    },
+    "opportunity_count": 3
+  },
+  {
     "date": "2026-05-29",
     "time": "18:03:01",
     "datetime": "2026-05-29 18:03:01",
