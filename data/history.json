@@ -1,5 +1,49 @@
 [
   {
+    "date": "2026-06-03",
+    "time": "15:02:38",
+    "datetime": "2026-06-03 15:02:38",
+    "timestamp": 1780470158,
+    "opportunities": [
+      {
+        "code": "161128",
+        "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
+        "price": 7.501,
+        "nav": 7.0616,
+        "nav_date": "2026-06-03 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 6.22,
+        "annualized_premium": 752.91,
+        "safe_margin": 5.94,
+        "change_pct": -0.58,
+        "fund_size": 0,
+        "amount": 31139.92
+      },
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.857,
+        "nav": 4.6277,
+        "nav_date": "2026-06-03 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 4.95,
+        "annualized_premium": 599.55,
+        "safe_margin": 4.67,
+        "change_pct": -0.67,
+        "fund_size": 0,
+        "amount": 9554.96
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 67,
+      "filtered": -67
+    },
+    "opportunity_count": 2
+  },
+  {
     "date": "2026-06-02",
     "time": "18:45:38",
     "datetime": "2026-06-02 18:45:38",
