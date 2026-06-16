@@ -1,5 +1,79 @@
 [
   {
+    "date": "2026-06-16",
+    "time": "15:35:53",
+    "datetime": "2026-06-16 15:35:53",
+    "timestamp": 1781595353,
+    "opportunities": [
+      {
+        "code": "161128",
+        "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
+        "price": 7.111,
+        "nav": 6.6064,
+        "nav_date": "2026-06-16 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 7.64,
+        "annualized_premium": 924.2,
+        "safe_margin": 7.36,
+        "change_pct": 0.64,
+        "fund_size": 0,
+        "amount": 20385.72
+      },
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.8,
+        "nav": 4.6108,
+        "nav_date": "2026-06-16 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 4.1,
+        "annualized_premium": 496.51,
+        "safe_margin": 3.82,
+        "change_pct": 0.95,
+        "fund_size": 0,
+        "amount": 6232.9
+      },
+      {
+        "code": "160416",
+        "name": "华安标普全球石油指数(LOF)A",
+        "price": 1.99,
+        "nav": 2.0913,
+        "nav_date": "2026-06-16 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": -4.84,
+        "annualized_premium": -586.11,
+        "safe_margin": -5.12,
+        "change_pct": -1.14,
+        "fund_size": 0,
+        "amount": 2767.44
+      },
+      {
+        "code": "501312",
+        "name": "华宝海外科技股票(QDII-LOF)A",
+        "price": 2.391,
+        "nav": 2.3205,
+        "nav_date": "2026-06-16 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.04,
+        "annualized_premium": 367.61,
+        "safe_margin": 2.76,
+        "change_pct": 0.63,
+        "fund_size": 0,
+        "amount": 22927.41
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 69,
+      "filtered": -69
+    },
+    "opportunity_count": 4
+  },
+  {
     "date": "2026-06-15",
     "time": "20:26:27",
     "datetime": "2026-06-15 20:26:27",
