@@ -1,5 +1,79 @@
 [
   {
+    "date": "2026-06-17",
+    "time": "15:22:45",
+    "datetime": "2026-06-17 15:22:45",
+    "timestamp": 1781680965,
+    "opportunities": [
+      {
+        "code": "501085",
+        "name": "财通科创主题灵活配置混合(LOF)",
+        "price": 4.363,
+        "nav": 4.0008,
+        "nav_date": "2026-06-17 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 9.05,
+        "annualized_premium": 1095.44,
+        "safe_margin": 8.77,
+        "change_pct": 8.69,
+        "fund_size": 0,
+        "amount": 1232.13
+      },
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.791,
+        "nav": 4.5271,
+        "nav_date": "2026-06-17 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 5.83,
+        "annualized_premium": 705.35,
+        "safe_margin": 5.55,
+        "change_pct": -0.19,
+        "fund_size": 0,
+        "amount": 5722.34
+      },
+      {
+        "code": "161128",
+        "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
+        "price": 7.09,
+        "nav": 6.8001,
+        "nav_date": "2026-06-17 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 4.26,
+        "annualized_premium": 515.84,
+        "safe_margin": 3.98,
+        "change_pct": -0.3,
+        "fund_size": 0,
+        "amount": 15679.6
+      },
+      {
+        "code": "501079",
+        "name": "大成科创主题混合(LOF)A",
+        "price": 6.194,
+        "nav": 5.9652,
+        "nav_date": "2026-06-17 15:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.84,
+        "annualized_premium": 464.11,
+        "safe_margin": 3.56,
+        "change_pct": 6.44,
+        "fund_size": 0,
+        "amount": 1202.71
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 74,
+      "filtered": -74
+    },
+    "opportunity_count": 4
+  },
+  {
     "date": "2026-06-16",
     "time": "19:21:32",
     "datetime": "2026-06-16 19:21:32",
