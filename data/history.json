@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-06-24",
+    "time": "17:39:39",
+    "datetime": "2026-06-24 17:39:39",
+    "timestamp": 1782293979,
+    "opportunities": [
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.66,
+        "nav": 4.4409,
+        "nav_date": "2026-06-24 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 4.93,
+        "annualized_premium": 596.98,
+        "safe_margin": 4.65,
+        "change_pct": 0.89,
+        "fund_size": 0,
+        "amount": 4829.68
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 66,
+      "filtered": -66
+    },
+    "opportunity_count": 1
+  },
+  {
     "date": "2026-06-23",
     "time": "17:52:05",
     "datetime": "2026-06-23 17:52:05",
