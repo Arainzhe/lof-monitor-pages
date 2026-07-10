@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-07-10",
+    "time": "17:44:00",
+    "datetime": "2026-07-10 17:44:00",
+    "timestamp": 1783676640,
+    "opportunities": [
+      {
+        "code": "161128",
+        "name": "易方达标普信息科技指数(QDII-LOF)A(人民币)",
+        "price": 6.734,
+        "nav": 6.5241,
+        "nav_date": "2026-07-10 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.22,
+        "annualized_premium": 389.29,
+        "safe_margin": 2.94,
+        "change_pct": 0.46,
+        "fund_size": 0,
+        "amount": 7362.15
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 67,
+      "filtered": -67
+    },
+    "opportunity_count": 1
+  },
+  {
     "date": "2026-07-09",
     "time": "17:59:21",
     "datetime": "2026-07-09 17:59:21",
