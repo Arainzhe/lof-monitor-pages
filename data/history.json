@@ -1,32 +1,62 @@
 [
   {
     "date": "2026-07-14",
-    "time": "12:59:01",
-    "datetime": "2026-07-14 12:59:01",
-    "timestamp": 1784005141,
+    "time": "16:15:27",
+    "datetime": "2026-07-14 16:15:27",
+    "timestamp": 1784016927,
     "opportunities": [
       {
         "code": "160416",
         "name": "华安标普全球石油指数(LOF)A",
-        "price": 2.099,
+        "price": 2.083,
         "nav": 1.9808,
         "nav_date": "2026-07-14 04:00",
         "nav_valid": false,
         "nav_warning": "净值日期格式异常",
-        "premium_rate": 5.97,
-        "annualized_premium": 722.04,
-        "safe_margin": 5.69,
-        "change_pct": 4.27,
+        "premium_rate": 5.16,
+        "annualized_premium": 624.3,
+        "safe_margin": 4.88,
+        "change_pct": 3.48,
         "fund_size": 0,
-        "amount": 14904.16
+        "amount": 26860.04
+      },
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.591,
+        "nav": 4.4203,
+        "nav_date": "2026-07-14 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.86,
+        "annualized_premium": 467.27,
+        "safe_margin": 3.58,
+        "change_pct": 0.35,
+        "fund_size": 0,
+        "amount": 1894.01
+      },
+      {
+        "code": "161815",
+        "name": "银华抗通胀主题(QDII-FOF-LOF)A",
+        "price": 1.037,
+        "nav": 1.0065,
+        "nav_date": "2026-07-14 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.03,
+        "annualized_premium": 366.67,
+        "safe_margin": 2.75,
+        "change_pct": 3.08,
+        "fund_size": 0,
+        "amount": 1636.14
       }
     ],
     "scan_info": {
       "scanned": 0,
-      "success": 78,
-      "filtered": -78
+      "success": 68,
+      "filtered": -68
     },
-    "opportunity_count": 1
+    "opportunity_count": 3
   },
   {
     "date": "2026-07-13",
