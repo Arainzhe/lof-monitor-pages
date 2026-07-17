@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-07-17",
+    "time": "16:17:43",
+    "datetime": "2026-07-17 16:17:43",
+    "timestamp": 1784276263,
+    "opportunities": [
+      {
+        "code": "501312",
+        "name": "华宝海外科技股票(QDII-LOF)A",
+        "price": 2.182,
+        "nav": 2.304,
+        "nav_date": "2026-07-17 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": -5.3,
+        "annualized_premium": -640.71,
+        "safe_margin": -5.58,
+        "change_pct": -4.38,
+        "fund_size": 0,
+        "amount": 6583.51
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 69,
+      "filtered": -69
+    },
+    "opportunity_count": 1
+  },
+  {
     "date": "2026-07-16",
     "time": "16:22:24",
     "datetime": "2026-07-16 16:22:24",
@@ -2025,34 +2054,5 @@
       "filtered": 29
     },
     "opportunity_count": 0
-  },
-  {
-    "date": "2026-04-17",
-    "time": "15:22:00",
-    "datetime": "2026-04-17 15:22:00",
-    "timestamp": 1776410520,
-    "opportunities": [
-      {
-        "code": "162720",
-        "name": "广发创业板定开",
-        "price": 1.317,
-        "nav": 1.4181,
-        "nav_date": "2026-04-17 15:00",
-        "nav_valid": false,
-        "nav_warning": "净值日期格式异常",
-        "premium_rate": -7.13,
-        "annualized_premium": -862.64,
-        "safe_margin": -7.41,
-        "change_pct": 2.09,
-        "fund_size": 0,
-        "amount": 2559972.716
-      }
-    ],
-    "scan_info": {
-      "scanned": 30,
-      "success": 30,
-      "filtered": 0
-    },
-    "opportunity_count": 1
   }
 ]
