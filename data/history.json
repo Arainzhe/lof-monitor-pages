@@ -1,5 +1,49 @@
 [
   {
+    "date": "2026-07-20",
+    "time": "13:48:47",
+    "datetime": "2026-07-20 13:48:47",
+    "timestamp": 1784526527,
+    "opportunities": [
+      {
+        "code": "160416",
+        "name": "华安标普全球石油指数(LOF)A",
+        "price": 2.14,
+        "nav": 2.0254,
+        "nav_date": "2026-07-18 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 5.66,
+        "annualized_premium": 684.64,
+        "safe_margin": 5.38,
+        "change_pct": 5.52,
+        "fund_size": 0,
+        "amount": 8356.15
+      },
+      {
+        "code": "161130",
+        "name": "易方达纳斯达克100ETF联接(QDII-LOF)A(人民币)",
+        "price": 4.47,
+        "nav": 4.3192,
+        "nav_date": "2026-07-18 04:00",
+        "nav_valid": false,
+        "nav_warning": "净值日期格式异常",
+        "premium_rate": 3.49,
+        "annualized_premium": 422.46,
+        "safe_margin": 3.21,
+        "change_pct": 0.13,
+        "fund_size": 0,
+        "amount": 1076.08
+      }
+    ],
+    "scan_info": {
+      "scanned": 0,
+      "success": 66,
+      "filtered": -66
+    },
+    "opportunity_count": 2
+  },
+  {
     "date": "2026-07-17",
     "time": "16:17:43",
     "datetime": "2026-07-17 16:17:43",
